@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CoLab — Shared Workspace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <header id="topbar">
+    <div class="topbar-left">
+      <span class="logo">⬡ CoLab</span>
+      <div class="user-badge" id="userBadge">
+        <span class="user-dot"></span>
+        <span id="userLabel">Connecting…</span>
+      </div>
+    </div>
+    <div class="topbar-center">
+      <div class="presence-bar" id="presenceBar">
+        <span id="onlineCount">1 user online</span>
+        <div id="avatarRow" class="avatar-row"></div>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="sync-badge" id="syncBadge">
+        <span class="sync-dot synced"></span>
+        <span id="syncLabel">Synced</span>
+      </div>
+      <button class="theme-toggle" id="themeToggle" title="Toggle dark/light mode">
+        <span id="themeIcon">☀</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- TYPING INDICATOR BAR -->
+  <div class="typing-bar" id="typingBar">
+    <span id="typingText"></span>
+  </div>
+
+  <!-- MAIN LAYOUT -->
+  <div class="app-layout">
+
+    <!-- CONTENT AREA -->
+    <main class="content-area">
+
+      <!-- SECTION TABS -->
+      <nav class="section-tabs">
+        <button class="tab-btn active" data-tab="editor">
+          <span class="tab-icon">✎</span> Editor
+        </button>
+        <button class="tab-btn" data-tab="todos">
+          <span class="tab-icon">☑</span> Todos
+        </button>
+        <button class="tab-btn" data-tab="notes">
+          <span class="tab-icon">◈</span> Notes
+        </button>
+      </nav>
+
+      <!-- EDITOR SECTION -->
+      <section class="tab-panel active" id="tab-editor">
+        <div class="panel-header">
+          <h2>Shared Document</h2>
+          <span class="panel-meta" id="editorMeta">Editing together</span>
+        </div>
+        <div class="editor-wrap" id="editorWrap">
+          <textarea id="sharedEditor" placeholder="Start typing your shared document here…&#10;&#10;All changes sync in real-time across every open tab."></textarea>
+          <div class="conflict-banner hidden" id="editorConflict">
+            <span class="conflict-icon">⚠</span>
+            <span>Another user modified this document</span>
+            <div class="conflict-actions">
+              <button class="btn-overwrite" id="editorOverwrite">Keep Mine</button>
+              <button class="btn-merge" id="editorMerge">Merge</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TODOS SECTION -->
+      <section class="tab-panel" id="tab-todos">
+        <div class="panel-header">
+          <h2>Shared To-Do List</h2>
+          <span class="panel-meta" id="todoMeta">0 tasks</span>
+        </div>
+        <div class="add-row">
+          <input type="text" id="todoInput" placeholder="Add a new task…" maxlength="200" />
+          <button id="addTodoBtn" class="btn-primary">+ Add</button>
+        </div>
+        <ul class="todo-list" id="todoList">
+          <!-- Rendered by JS -->
+        </ul>
+      </section>
+
+      <!-- NOTES SECTION -->
+      <section class="tab-panel" id="tab-notes">
+        <div class="panel-header">
+          <h2>Shared Notes</h2>
+          <span class="panel-meta" id="notesMeta">0 notes</span>
+        </div>
+        <div class="add-row">
+          <input type="text" id="noteTitle" placeholder="Note title…" maxlength="100" />
+          <button id="addNoteBtn" class="btn-primary">+ Add Note</button>
+        </div>
+        <div class="notes-grid" id="notesList">
+          <!-- Rendered by JS -->
+        </div>
+      </section>
+
+    </main>
+
+    <!-- SIDE PANEL -->
+    <aside class="side-panel">
+      <div class="side-section">
+        <div class="side-header">
+          <span>◎ Activity Log</span>
+          <button class="clear-log-btn" id="clearLogBtn" title="Clear log">✕</button>
+        </div>
+        <ul class="activity-log" id="activityLog">
+          <li class="log-empty">No activity yet</li>
+        </ul>
+      </div>
+      <div class="side-section">
+        <div class="side-header">
+          <span>◉ Live Notifications</span>
+        </div>
+        <div class="notifications-area" id="notificationsArea">
+          <p class="log-empty">Waiting for collaboration…</p>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- TOAST CONTAINER -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
